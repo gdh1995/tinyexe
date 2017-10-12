@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tinyexe", "tinyexe\tinyexe.vcxproj", "{90561442-7B66-480F-9924-143B9C8EB492}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "cdexec", "cdexec\test1.vcxproj", "{428A8F0E-694B-4144-AAD9-3D7623DF33C4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "start2", "start2\test2.vcxproj", "{7849C97E-26F2-41B8-BA06-5206D3235CDC}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sudo", "sudo\test0.vcxproj", "{7F8CE093-E35E-47EC-90CD-089E76F92983}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sudocd", "sudocd\sudocd.vcxproj", "{1F073223-AB84-4643-A81A-87CA48096877}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "git-bash", "git-bash\git-bash.vcxproj", "{90561442-7B66-480F-9924-143B9C8EB493}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "echoexec", "echoexec\exec.vcxproj", "{4EAF6849-60D5-459B-AAC9-DEEF22B2FE89}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{90561442-7B66-480F-9924-143B9C8EB492}.Release|x64.ActiveCfg = Release|x64
+		{90561442-7B66-480F-9924-143B9C8EB492}.Release|x64.Build.0 = Release|x64
+		{428A8F0E-694B-4144-AAD9-3D7623DF33C4}.Release|x64.ActiveCfg = Release|x64
+		{428A8F0E-694B-4144-AAD9-3D7623DF33C4}.Release|x64.Build.0 = Release|x64
+		{7849C97E-26F2-41B8-BA06-5206D3235CDC}.Release|x64.ActiveCfg = Release|x64
+		{7849C97E-26F2-41B8-BA06-5206D3235CDC}.Release|x64.Build.0 = Release|x64
+		{7F8CE093-E35E-47EC-90CD-089E76F92983}.Release|x64.ActiveCfg = Release|x64
+		{7F8CE093-E35E-47EC-90CD-089E76F92983}.Release|x64.Build.0 = Release|x64
+		{1F073223-AB84-4643-A81A-87CA48096877}.Release|x64.ActiveCfg = Release|x64
+		{1F073223-AB84-4643-A81A-87CA48096877}.Release|x64.Build.0 = Release|x64
+		{90561442-7B66-480F-9924-143B9C8EB493}.Release|x64.ActiveCfg = Release|x64
+		{90561442-7B66-480F-9924-143B9C8EB493}.Release|x64.Build.0 = Release|x64
+		{4EAF6849-60D5-459B-AAC9-DEEF22B2FE89}.Release|x64.ActiveCfg = Release|x64
+		{4EAF6849-60D5-459B-AAC9-DEEF22B2FE89}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
