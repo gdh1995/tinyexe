@@ -12,6 +12,9 @@ typedef unsigned int DWORD;
 #define _Out_
 #define WINAPI __stdcall
 
+#define INVALID_FILE_ATTRIBUTES ((DWORD)-1)
+#define FILE_ATTRIBUTE_DIRECTORY 0x00000010
+
 #pragma comment(lib, "kernel32")
 #pragma comment(lib, "shell32")
 
@@ -25,8 +28,9 @@ extern HINSTANCE WINAPI ShellExecuteW(
 );
 #define ShellExecute ShellExecuteW
 
-extern tchar * WINAPI GetCommandLineW(void);
 #define GetCommandLine GetCommandLineW
+extern tchar * WINAPI GetCommandLine(void);
+#define GetFileAttributes GetFileAttributesW
 
 extern void WINAPI ExitProcess(_In_ DWORD uExitCode);
 
@@ -46,6 +50,7 @@ void __stdcall MyMain() {
 #if defined CDEXEC
   #undef pwd
   tchar *pwd;
+  DWORD WINAPI GetFileAttributes(_In_ const tchar *lpFileName);
 #endif
 #ifdef START2
   #undef showCmd
@@ -112,6 +117,17 @@ void __stdcall MyMain() {
     return;
   }
   *cmd = L'\0';
+  {
+    DWORD dwAttrib = GetFileAttributes(pwd);
+    if (dwAttrib != INVALID_FILE_ATTRIBUTES && !(dwAttrib & FILE_ATTRIBUTE_DIRECTORY)) {
+      while (pwd < --cmd) {
+        if (*cmd == L'\\') {
+          *cmd = L'\0';
+          break;
+        }
+      }
+    }
+  }
 #endif
 
   // read file to exec
