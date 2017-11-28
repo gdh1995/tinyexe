@@ -15,7 +15,7 @@ typedef unsigned short tchar;
 extern volatile const int _showcmd_in_file[4] = { 'wohS', ':dmC', ' :4/' , 6 };
 #endif
 #ifdef STATICRUN
-extern volatile const tchar _cmd_in_file[][BUFFER_LENGTH_IN_FILE] = {
+extern volatile tchar _cmd_in_file[][BUFFER_LENGTH_IN_FILE] = {
   L"usr\\bin\\env.exe"
 #ifndef NO_INSERTED_ARGS
   , L"HOME=/home/gdh1995 ~\\usr\\bin\\_mintty.exe -"

@@ -115,7 +115,7 @@ tchar *getBaseDir(tchar *const buffer) {
 extern volatile const int _showcmd_in_file[4];
 #endif
 #ifdef STATICRUN
-extern volatile const tchar _cmd_in_file[
+extern volatile tchar _cmd_in_file[
 #ifndef NO_INSERTED_ARGS
   2
 #else
@@ -141,14 +141,14 @@ void __stdcall MyMain() {
 #ifdef STATICRUN
 #undef realcmd
 #undef realargs
-  const tchar *exe_to_run = (const tchar *)_cmd_in_file[0];
+  tchar *exe_to_run = (tchar *)_cmd_in_file[0];
 #ifndef NO_INSERTED_ARGS
   const tchar *args_to_insert = (const tchar *)_cmd_in_file[1];
 #else
 #define args_to_insert ((const tchar *)(void*)NULL)
 #endif
   static tchar _config_exe_ucs[BUFFER_LENGTH_IN_FILE];
-  tchar exe_path[MIN(MAX_PATH * 2, BUFFER_LENGTH_IN_FILE * 2)];
+  static tchar exe_path[MIN(MAX_PATH * 2, BUFFER_LENGTH_IN_FILE * 2)];
   const tchar *realcmd, *realargs;
   tchar *end_of_base_dir = NULL;
   HMODULE hModuleSelf = NULL;
@@ -191,6 +191,9 @@ void __stdcall MyMain() {
   if (((const char*)exe_to_run)[1] != '\0') {
     strcpyFromAsciToUnicode((unsigned short *)_config_exe_ucs, (const unsigned char*)exe_to_run);
     exe_to_run = _config_exe_ucs;
+  }
+  for (p = exe_to_run; *p != L'\0'; p++) {
+    if (*p == L'/') { *p = L'\\'; }
   }
   if (*exe_to_run == L'$') {
     realcmd = exe_to_run + 1;
