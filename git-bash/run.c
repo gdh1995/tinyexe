@@ -110,50 +110,55 @@ tchar *getBaseDir(tchar *const buffer) {
 
 #endif
 #define volatile
-#if defined START2 || defined STATICRUN
-#undef showCmd
-extern volatile const int _showcmd_in_file[4];
-#endif
 #ifdef STATICRUN
-extern volatile tchar _cmd_in_file[
+extern volatile const char _cmd_in_file[
 #ifndef NO_INSERTED_ARGS
   2
 #else
   1
 #endif
-][BUFFER_LENGTH_IN_FILE];
+][BUFFER_LENGTH_IN_FILE * 2];
   static tchar full_args[MAX_EXEC_ARG_LENGTH];
 #endif
 #ifdef SUDO
 #undef oper
   extern const tchar oper[];
 #endif
+#if defined START2 || defined STATICRUN
+#undef showCmd
+#endif
+#if defined START2 || defined STATICRUN
+#undef oper
+#endif
 
 void __stdcall MyMain() {
+  static tchar _config_exe_ucs[BUFFER_LENGTH_IN_FILE];
+  static tchar exe_path[MIN(MAX_PATH * 2, BUFFER_LENGTH_IN_FILE * 2)];
+
   tchar *p, *cmd, *args;
 #if defined CDEXEC || defined CDRUN
 #undef pwd
   tchar *pwd;
 #endif
 #if defined START2 || defined STATICRUN
-  int showCmd = _showcmd_in_file[3];
+  int showCmd = *(int*)&_cmd_in_file[0][16];
 #endif
 #ifdef STATICRUN
 #undef realcmd
 #undef realargs
-  tchar *exe_to_run = (tchar *)_cmd_in_file[0];
+  const tchar *const oper = _cmd_in_file[0][16 + 4] != '\0' ? (const tchar *)&_cmd_in_file[0][16 + 4] : NULL;
+  const tchar *const exe_to_run_const = (const tchar *)&_cmd_in_file[0][32];
+  tchar *const exe_to_run = _config_exe_ucs;
 #ifndef NO_INSERTED_ARGS
   const tchar *args_to_insert = (const tchar *)_cmd_in_file[1];
 #else
 #define args_to_insert ((const tchar *)(void*)NULL)
 #endif
-  static tchar _config_exe_ucs[BUFFER_LENGTH_IN_FILE];
-  static tchar exe_path[MIN(MAX_PATH * 2, BUFFER_LENGTH_IN_FILE * 2)];
   const tchar *realcmd, *realargs;
   tchar *end_of_base_dir = NULL;
   HMODULE hModuleSelf = NULL;
 
-  if (*((const char*)exe_to_run) == L'\0') {
+  if (exe_to_run_const[0] == L'\0') {
     ExitProcess(0);
     return;
   }
@@ -188,9 +193,11 @@ void __stdcall MyMain() {
     realargs = NULL;
   }
 #endif
-  if (((const char*)exe_to_run)[1] != '\0') {
-    strcpyFromAsciToUnicode((unsigned short *)_config_exe_ucs, (const unsigned char*)exe_to_run);
-    exe_to_run = _config_exe_ucs;
+  if (((const char*)exe_to_run_const)[1] != '\0') {
+    strcpyFromAsciToUnicode(exe_to_run, (const unsigned char*)exe_to_run_const);
+  }
+  else {
+    strcpy2(exe_to_run, (const tchar *)exe_to_run_const);
   }
   for (p = exe_to_run; *p != L'\0'; p++) {
     if (*p == L'/') { *p = L'\\'; }

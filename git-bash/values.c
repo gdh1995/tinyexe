@@ -10,20 +10,17 @@ typedef unsigned short tchar;
 #define MAX_EXEC_ARG_LENGTH (65536 / sizeof(tchar))
 #endif
 
-#if defined START2 || defined STATICRUN
-#undef showCmd
-extern volatile const int _showcmd_in_file[4] = { 'wohS', ':dmC', ' :4/' , 6 };
-#endif
 #ifdef STATICRUN
-extern volatile tchar _cmd_in_file[][BUFFER_LENGTH_IN_FILE] = {
-  L"usr\\bin\\env.exe"
+extern const char _cmd_in_file[][BUFFER_LENGTH_IN_FILE * 2] = {
+  "Show@I32" " Op@WSTR"
+  "\x06\0\0\0" "\0\0r\0u\0n\0a\0s\0"
+  "usr\\bin\\env.exe"
 #ifndef NO_INSERTED_ARGS
-  , L"HOME=/home/gdh1995 ~\\usr\\bin\\_mintty.exe -"
+  , "HOME=/home/gdh1995 ~\\usr\\bin\\_mintty.exe -"
 #else
 #define args_to_insert ((const tchar *)(void*)NULL)
 #endif
 };
-static tchar full_args[MAX_EXEC_ARG_LENGTH] = L"";
 #endif
 #ifdef SUDO
 #undef oper
