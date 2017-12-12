@@ -12,7 +12,7 @@
   <PropertyGroup Label="Globals">
     <ProjectGuid>{1F073223-AB84-4643-A81A-87CA48096877}</ProjectGuid>
     <RootNamespace>sudocd</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
